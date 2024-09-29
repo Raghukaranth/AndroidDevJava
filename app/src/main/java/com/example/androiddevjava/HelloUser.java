@@ -22,17 +22,21 @@ public class HelloUser extends AppCompatActivity {
     private EditText editTextUsername;
     private TextView textViewResponse;
     private ApiService apiService;
+    private Toast mToast;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello_user);
 
-         editTextUsername = findViewById(R.id.editTextUsername);
+        editTextUsername = findViewById(R.id.editTextUsername);
         textViewResponse = findViewById(R.id.textViewResponse);
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
 
         RetrofitService retrofitService = new RetrofitService();
         apiService = retrofitService.getRetrofit().create(ApiService.class);
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +64,12 @@ public class HelloUser extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(HelloUser.this, "Request Failed: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                if (mToast != null)
+                    mToast.cancel();
+                else {
+                    mToast = Toast.makeText(HelloUser.this, "Request Failed: " + t.getMessage(), Toast.LENGTH_SHORT);
+                    mToast.show();
+                }
             }
         });
     }

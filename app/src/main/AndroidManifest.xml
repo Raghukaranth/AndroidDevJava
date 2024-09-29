@@ -28,6 +28,7 @@
             android:parentActivityName=".EmployeeListActivity"/>
         <activity
             android:name=".HelloUser"
+            android:label="Hello User"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

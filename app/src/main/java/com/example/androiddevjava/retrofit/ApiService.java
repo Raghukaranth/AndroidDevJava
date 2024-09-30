@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     @GET(UtilsInterface.USER_NAME)
-    Call<UserResponse> getUser(@Path("username") String username);
+    Call<UserResponse> getUser(@Query("username") String username);
 }

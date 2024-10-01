@@ -1,6 +1,7 @@
 package com.example.androiddevjava.retrofit;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,10 +14,16 @@ public class RetrofitService {
     }
 
     private void initializeRetrofit() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.118.132:9090/")
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .build();
+        if (retrofit == null) {
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://172.20.75.34:9000/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+        }
     }
 
     public Retrofit getRetrofit() {

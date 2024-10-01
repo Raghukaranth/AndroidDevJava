@@ -51,22 +51,22 @@ public class HelloUser extends AppCompatActivity {
 
     private void fetchUserData(String username) {
         ApiService apiService = retrofitService.getRetrofit().create(ApiService.class);
-        Call<UserResponse> call = apiService.getUserData(username);
+        Call<String> call = apiService.getUserData(username);
 
-        call.enqueue(new Callback<UserResponse>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    responseTextView.setText(response.body().getUserName());
+                    String data = response.body();
+                    responseTextView.setText(data);
                 } else {
-                    responseTextView.setText("No data found");
+                    responseTextView.setText("Error: " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-                Log.e("API_CALL", "Error: " + t.getMessage());
-                responseTextView.setText("Error occurred");
+            public void onFailure(Call<String> call, Throwable t) {
+                responseTextView.setText("Error: " + t.getMessage());
             }
         });
     }

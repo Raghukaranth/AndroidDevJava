@@ -14,6 +14,7 @@ public class RetrofitService {
     }
 
     private void initializeRetrofit() {
+
         if (retrofit == null) {
             Gson gson = new GsonBuilder()
                     .setLenient()

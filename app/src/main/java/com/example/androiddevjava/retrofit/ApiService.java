@@ -8,6 +8,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("/hello/username")
-    Call<UserResponse> getUserData(@Path("username") String username);
+    @GET("/hello/{username}")
+    Call<String> getUserData(@Path("username") String username);
 }

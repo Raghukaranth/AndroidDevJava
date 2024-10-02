@@ -1,5 +1,6 @@
 package com.example.androiddevjava.retrofit;
 
+import com.example.androiddevjava.utils.UtilsInterface;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,7 +22,7 @@ public class RetrofitService {
                     .create();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://172.20.75.34:9000/")
+                    .baseUrl(UtilsInterface.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }

@@ -2,6 +2,7 @@ package com.example.androiddevjava;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.androiddevjava.model.Data;
 import com.example.androiddevjava.retrofit.DataAPI;
 import com.example.androiddevjava.retrofit.RetrofitService;
+
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +60,7 @@ public class GetDataSwitch extends AppCompatActivity {
                 Data responseFromAPI = response.body();
                 String responseString = "Response Code : " + response.code() + "\nName : " + responseFromAPI.getName() + "\n" + "Job : " + responseFromAPI.getJob();
                 Intent intent = new Intent(GetDataSwitch.this, PostDataSwitch.class);
-                intent.putExtra("user_data", (CharSequence) responseFromAPI);
+                intent.putExtra("user_data",model);
                 startActivity(intent);
             }
 

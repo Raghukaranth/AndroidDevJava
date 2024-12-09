@@ -23,11 +23,12 @@ public class PostDataSwitch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_data_switch);
 
-        String userDataJson = getIntent().getStringExtra("user_data");
+        Data userDataJson = (Data) getIntent().getSerializableExtra("user_data");
         Log.e("post_data","user data / "+userDataJson);
-        List<Data> Data = new Gson().fromJson(userDataJson, new TypeToken<List<Data>>(){}.getType());
+
 
         responseTV = findViewById(R.id.idTVResponse);
-        responseTV.setText(Data.toString());
+        String responseString = "Name: " + userDataJson.getName() + "Job: " + userDataJson.getJob();
+        responseTV.setText(responseString);
     }
 }

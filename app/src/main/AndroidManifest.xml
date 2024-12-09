@@ -31,7 +31,7 @@
             android:parentActivityName=".EmployeeListActivity" />
         <activity
             android:name=".GetAndPostData"
-            android:exported="true"/>
+            android:exported="false"/>
         <activity
             android:name=".GetDataSwitch"
             android:exported="true" >

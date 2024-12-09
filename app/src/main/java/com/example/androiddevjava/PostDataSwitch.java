@@ -1,6 +1,7 @@
 package com.example.androiddevjava;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +24,7 @@ public class PostDataSwitch extends AppCompatActivity {
         setContentView(R.layout.activity_post_data_switch);
 
         String userDataJson = getIntent().getStringExtra("user_data");
+        Log.e("post_data","user data / "+userDataJson);
         List<Data> Data = new Gson().fromJson(userDataJson, new TypeToken<List<Data>>(){}.getType());
 
         responseTV = findViewById(R.id.idTVResponse);

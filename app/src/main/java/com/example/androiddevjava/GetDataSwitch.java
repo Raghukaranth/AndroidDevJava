@@ -32,7 +32,7 @@ public class GetDataSwitch extends AppCompatActivity {
         postDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nameEdt.getText().toString().isEmpty() &&
+                if (nameEdt.getText().toString().isEmpty() ||
                         jobEdt.getText().toString().isEmpty()) {
                     Toast.makeText(GetDataSwitch.this, "Please enter both values", Toast.LENGTH_SHORT).show();
                     return;

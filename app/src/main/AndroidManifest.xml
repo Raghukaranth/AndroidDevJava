@@ -16,19 +16,24 @@
         android:theme="@style/Theme.AndroidDevJava"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".PostDataSwitch"
+            android:exported="false" />
 
         <activity
             android:name=".EmployeeListActivity"
             android:exported="false"
-            android:label="Employee list"></activity>
+            android:label="Employee list" />
         <activity
             android:name=".EmployeeForm"
             android:exported="false"
             android:label="Create new employee"
-            android:parentActivityName=".EmployeeListActivity"/>
-
+            android:parentActivityName=".EmployeeListActivity" />
         <activity
             android:name=".GetAndPostData"
+            android:exported="false"/>
+        <activity
+            android:name=".GetDataSwitch"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

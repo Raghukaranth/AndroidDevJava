@@ -1,6 +1,8 @@
 package com.example.androiddevjava.model;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data  implements Serializable {
     private String id;
     private String name;
     private String job;

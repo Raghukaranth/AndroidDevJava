@@ -17,8 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.androiddevjava.utils.UtilsInterface;
 
 public class Redirection extends AppCompatActivity {
-    private WebView button;
-
+    private Button button;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +26,15 @@ public class Redirection extends AppCompatActivity {
         setContentView(R.layout.activity_redirection);
 
         button = findViewById(R.id.button);
-        button.getSettings().setJavaScriptEnabled(true);
-        button.setWebChromeClient(new WebChromeClient());
+        webView = findViewById(R.id.webView);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                button.loadUrl(UtilsInterface.WEBSITE_URL);
+                webView.loadUrl(UtilsInterface.WEBSITE_URL);
             }
         });
     }

@@ -1,9 +1,15 @@
 package com.example.androiddevjava.model;
 
 
-public class UserLogin {
+import java.io.Serializable;
+
+public class UserLoginModel implements Serializable {
     private Long Id;
     private String Name;
+
+    public UserLoginModel(String name) {
+        Name = name;
+    }
 
     public Long getId() {
         return Id;

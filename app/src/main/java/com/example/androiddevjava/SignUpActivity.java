@@ -5,19 +5,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.androiddevjava.model.Data;
+import com.example.androiddevjava.model.UserLoginModel;
+import com.example.androiddevjava.retrofit.RetrofitService;
+import com.example.androiddevjava.retrofit.UserLogin;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText nameTextBox;
     private Button signUpButton;
+    private TextView responseTV;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +32,54 @@ public class SignUpActivity extends AppCompatActivity {
 
         nameTextBox = findViewById(R.id.idNameTextBox);
         signUpButton = findViewById(R.id.idSignUpButton);
+        responseTV = findViewById(R.id.idTVResponse);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameTextBox.getText().toString().isEmpty())
+                if (nameTextBox.getText().toString().isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "Please enter the value", Toast.LENGTH_SHORT).show();
+                }
+                postSignUpData(nameTextBox.getText().toString());
+            }
+        });
+    }
+
+    private void postSignUpData(String name) {
+        RetrofitService retrofitService = new RetrofitService();
+        UserLogin userLoginApi = retrofitService.getRetrofit().create(UserLogin.class);
+
+        UserLoginModel userLoginModel = new UserLoginModel(name);
+        Call<UserLoginModel> call = userLoginApi.signUpForTheApp(userLoginModel);
+
+        call.enqueue(new Callback<UserLoginModel>() {
+            @Override
+            public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
+                nameTextBox.setText("");
+                UserLoginModel responseFromAPI = response.body();
+                String responseString = "Response Code : " + response.code() + "\nName : " + responseFromAPI.getName() + "\n";
+                responseTV.setText(responseString);
+            }
+
+            @Override
+            public void onFailure(Call<UserLoginModel> call, Throwable t) {
+                responseTV.setText("Error found is : " + t.getMessage());
             }
         });
 
+
+//        call.enqueue(new Callback<UserLoginModel>() {
+//            @Override
+//            public void onResponse(Call<UserLogin> call, Response<UserLogin> response) {
+//                nameTextBox.setText("");
+//                UserLoginModel DatafromAPI = (UserLoginModel) response.body();
+//                String resonseString = "Response Code : " + response.code() + "\nName : " + DatafromAPI.getName() + "\n" + "id : " + DatafromAPI.getId();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserLogin> call, Throwable t) {
+//                responseTV.setText("Error found is : " + t.getMessage());
+//            }
+//        });
     }
 }

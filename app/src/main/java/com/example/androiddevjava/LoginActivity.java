@@ -1,6 +1,7 @@
 package com.example.androiddevjava;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,22 +15,33 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText nameTextBox;
-    private Button submitButton;
+    private EditText idTextBox;
+    private Button loginButton;
+    private Button loginSignUpButton;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        nameTextBox = findViewById(R.id.idNameTextBox);
-        submitButton = findViewById(R.id.idPostButton);
+        idTextBox = findViewById(R.id.idNumberTextBox);
+        loginButton = findViewById(R.id.idLoginButton);
+        loginSignUpButton = findViewById(R.id.idLoginSignButton);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nameTextBox.getText().toString().isEmpty())
+                if(idTextBox.getText().toString().isEmpty())
                     Toast.makeText(LoginActivity.this, "Please enter the value", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        loginSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }

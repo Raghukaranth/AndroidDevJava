@@ -66,20 +66,5 @@ public class SignUpActivity extends AppCompatActivity {
                 responseTV.setText("Error found is : " + t.getMessage());
             }
         });
-
-
-//        call.enqueue(new Callback<UserLoginModel>() {
-//            @Override
-//            public void onResponse(Call<UserLogin> call, Response<UserLogin> response) {
-//                nameTextBox.setText("");
-//                UserLoginModel DatafromAPI = (UserLoginModel) response.body();
-//                String resonseString = "Response Code : " + response.code() + "\nName : " + DatafromAPI.getName() + "\n" + "id : " + DatafromAPI.getId();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserLogin> call, Throwable t) {
-//                responseTV.setText("Error found is : " + t.getMessage());
-//            }
-//        });
     }
 }

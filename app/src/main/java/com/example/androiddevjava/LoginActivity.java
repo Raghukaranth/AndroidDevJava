@@ -31,9 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         idLoginButton = findViewById(R.id.idLoginButton);
         idLoginSignButton = findViewById(R.id.idLoginSignButton);
 
-        String str = idNumberTextBox.getEditableText().toString();
-        Long id = Long.parseLong(str);
-
         idLoginSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (idNumberTextBox.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter the value", Toast.LENGTH_SHORT).show();
                 }
-                postData(id.intValue());
+                long id = Long.parseLong(idNumberTextBox.getText().toString());
+                postData(id);
             }
         });
     }

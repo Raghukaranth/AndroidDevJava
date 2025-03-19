@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/profile"
-        android:title="Profile"
+        android:title="Google"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
         android:id="@+id/home"
-        android:title="Home"
+        android:title="Perplexity"
         android:icon="@drawable/ic_android_black_24dp"/>
     <item
         android:id="@+id/settings"

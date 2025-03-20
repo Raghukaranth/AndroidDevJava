@@ -83,13 +83,16 @@ public class LoginActivity extends AppCompatActivity {
         UserLoginAPI userLoginAPI = retrofitService.getRetrofit().create(UserLoginAPI.class);
 
         UserLoginModel model = new UserLoginModel(id);
-        Call<UserLoginModel> call = userLoginAPI.signUpUser(model);
+        Call<UserLoginModel> call = userLoginAPI.loginUser(id);
 
         call.enqueue(new Callback<UserLoginModel>() {
             @Override
             public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
-                Intent intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
-                startActivity(intent);
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
+                    startActivity(intent);
+                }
+                else Toast.makeText(LoginActivity.this, "You are not the member of our group please sign up first", Toast.LENGTH_SHORT).show();
             }
 
             @Override

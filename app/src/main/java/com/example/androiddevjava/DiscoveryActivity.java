@@ -33,9 +33,9 @@ public class DiscoveryActivity extends AppCompatActivity {
 
         setCurrentFragment(firstFragment);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if(item.getItemId() == R.id.home) { setCurrentFragment(firstFragment); }
             if(item.getItemId() == R.id.profile) { webView.loadUrl("https://www.google.com/"); }
-            if(item.getItemId() == R.id.home) { webView.loadUrl("https://www.perplexity.ai/"); }
-            if (item.getItemId() == R.id.settings) { setCurrentFragment(thirdFragment); }
+            if (item.getItemId() == R.id.settings) { webView.loadUrl("https://www.perplexity.ai/"); }
             return true;
         });
     }

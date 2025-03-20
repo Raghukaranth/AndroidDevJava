@@ -1,5 +1,7 @@
 package com.example.androiddevjava;
 
+import static java.util.Optional.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.androiddevjava.model.UserLoginModel;
 import com.example.androiddevjava.retrofit.RetrofitService;
 import com.example.androiddevjava.retrofit.UserLoginAPI;
+
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,12 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         idLoginButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                long id = Long.parseLong(idNumberTextBox.getText().toString());
                 if (idNumberTextBox.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter the value", Toast.LENGTH_SHORT).show();
                 }
-                long id = Long.parseLong(idNumberTextBox.getText().toString());
                 postData(id);
             }
         });
@@ -62,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserLoginModel>() {
             @Override
             public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
-
+                Intent intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
+                startActivity(intent);
             }
 
             @Override

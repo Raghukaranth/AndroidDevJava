@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Login To App"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:enabled="false"/>
 
     <Button
         android:id="@+id/idLoginSignButton"

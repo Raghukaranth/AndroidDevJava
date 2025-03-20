@@ -4,6 +4,8 @@ import static java.util.Optional.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +36,25 @@ public class LoginActivity extends AppCompatActivity {
         idNumberTextBox = findViewById(R.id.idNumberTextBox);
         idLoginButton = findViewById(R.id.idLoginButton);
         idLoginSignButton = findViewById(R.id.idLoginSignButton);
+
+        idLoginButton.setEnabled(false);
+
+        idNumberTextBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                idLoginButton.setEnabled(!charSequence.toString().trim().isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         idLoginSignButton.setOnClickListener(new View.OnClickListener() {
             @Override

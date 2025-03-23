@@ -1,4 +1,4 @@
-package com.example.androiddevjava;
+package com.example.androiddevjava.dataSwitch;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androiddevjava.R;
 import com.example.androiddevjava.model.Data;
 
 public class PostDataSwitch extends AppCompatActivity {

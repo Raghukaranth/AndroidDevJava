@@ -1,6 +1,4 @@
-package com.example.androiddevjava;
-
-import static java.util.Optional.*;
+package com.example.androiddevjava.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androiddevjava.discovery.DiscoveryActivity;
+import com.example.androiddevjava.R;
 import com.example.androiddevjava.model.UserLoginModel;
 import com.example.androiddevjava.retrofit.RetrofitService;
 import com.example.androiddevjava.retrofit.UserLoginAPI;
-
-import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;

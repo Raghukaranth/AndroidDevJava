@@ -1,8 +1,7 @@
-package com.example.androiddevjava;
+package com.example.androiddevjava.login;
 
 import static com.example.androiddevjava.R.*;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,14 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.androiddevjava.R;
 import com.example.androiddevjava.model.UserLoginModel;
-import com.example.androiddevjava.retrofit.DataAPI;
 import com.example.androiddevjava.retrofit.RetrofitService;
 import com.example.androiddevjava.retrofit.UserLoginAPI;
 

@@ -1,4 +1,4 @@
-package com.example.androiddevjava;
+package com.example.androiddevjava.employee;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androiddevjava.R;
 import com.example.androiddevjava.adapter.EmployeeAdapter;
 import com.example.androiddevjava.model.Employee;
 import com.example.androiddevjava.retrofit.EmployeeApi;

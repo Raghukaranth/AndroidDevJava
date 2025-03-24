@@ -3,12 +3,17 @@ package com.example.androiddevjava.discovery;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.androiddevjava.R;
+import com.example.androiddevjava.model.UserLoginModel;
+import com.example.androiddevjava.retrofit.LoginViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +62,26 @@ public class FirstFragment extends Fragment {
         }
     }
 
+    private LoginViewModel loginViewModel;
+    private TextView textView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        View view =  inflater.inflate(R.layout.fragment_first, container, false);
+        textView = view.findViewById(R.id.idFragmentText);
+
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+
+        loginViewModel.getLoginUser().observe(getViewLifecycleOwner(), userLoginModel -> {
+            if (userLoginModel != null) {
+                textView.setText(userLoginModel.toString());
+            } else {
+                textView.setText("Failed to load data");
+            }
+        });
+        return view;
+
     }
 }

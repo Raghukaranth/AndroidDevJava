@@ -1,51 +1,41 @@
-package com.example.androiddevjava;
+package com.example.androiddevjava.dataSwitch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.androiddevjava.R;
 import com.example.androiddevjava.model.Data;
 import com.example.androiddevjava.retrofit.DataAPI;
-import com.example.androiddevjava.retrofit.EmployeeApi;
 import com.example.androiddevjava.retrofit.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GetAndPostData extends AppCompatActivity {
+public class GetDataSwitch extends AppCompatActivity {
     private EditText nameEdt, jobEdt;
     private Button postDataBtn;
-    private TextView responseTV;
-    private ProgressBar loadingPB;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_and_post_data);
+        setContentView(R.layout.activity_get_data_switch);
 
         nameEdt = findViewById(R.id.idEdtName);
         jobEdt = findViewById(R.id.idEdtJob);
         postDataBtn = findViewById(R.id.idBtnPost);
-        responseTV = findViewById(R.id.idTVResponse);
-        loadingPB = findViewById(R.id.idLoadingPB);
 
         postDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(nameEdt.getText().toString().isEmpty() &&
-                   jobEdt.getText().toString().isEmpty()) {
-                    Toast.makeText(GetAndPostData.this, "Please enter both values", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                if (nameEdt.getText().toString().isEmpty() ||
+                        jobEdt.getText().toString().isEmpty()) {
+                    Toast.makeText(GetDataSwitch.this, "Please enter both values", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 postData(nameEdt.getText().toString(), jobEdt.getText().toString());
@@ -54,7 +44,6 @@ public class GetAndPostData extends AppCompatActivity {
     }
 
     private void postData(String name, String job) {
-        loadingPB.setVisibility(View.VISIBLE);
         RetrofitService retrofitService = new RetrofitService();
         DataAPI dataAPI = retrofitService.getRetrofit().create(DataAPI.class);
 
@@ -64,19 +53,19 @@ public class GetAndPostData extends AppCompatActivity {
         call.enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
-                loadingPB.setVisibility(View.GONE);
                 jobEdt.setText("");
                 nameEdt.setText("");
                 Data responseFromAPI = response.body();
                 String responseString = "Response Code : " + response.code() + "\nName : " + responseFromAPI.getName() + "\n" + "Job : " + responseFromAPI.getJob();
-                responseTV.setText(responseString);
+                Intent intent = new Intent(GetDataSwitch.this, PostDataSwitch.class);
+                intent.putExtra("user_data",model);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<Data> call, Throwable t) {
-                responseTV.setText("Error found is : " + t.getMessage());
+                Toast.makeText(GetDataSwitch.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

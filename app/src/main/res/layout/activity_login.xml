@@ -6,29 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".dataSwitch.GetDataSwitch">
+    tools:context=".login.LoginActivity">
 
     <EditText
-        android:id="@+id/idEdtName"
+        android:id="@+id/idNumberTextBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="40dp"
-        android:hint="Enter your name" />
-
-    <EditText
-        android:id="@+id/idEdtJob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Enter your job" />
+        android:hint="Enter your id"
+        android:maxLength="8"
+        android:inputType="number"/>
 
     <Button
-        android:id="@+id/idBtnPost"
+        android:id="@+id/idLoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Send Data to API"
-        android:textAllCaps="false" />
+        android:text="Login To App"
+        android:textAllCaps="false"
+        android:enabled="false"/>
 
+    <Button
+        android:id="@+id/idLoginSignButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Sign in To App"
+        android:textAllCaps="false" />
 </LinearLayout>

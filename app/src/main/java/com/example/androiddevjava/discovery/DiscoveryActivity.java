@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androiddevjava.R;
+import com.example.androiddevjava.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DiscoveryActivity extends AppCompatActivity {
@@ -23,8 +24,10 @@ public class DiscoveryActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
 
+        long userId = getIntent().getLongExtra("userLongValue", -1);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        Fragment firstFragment = new FirstFragment();
+        Fragment firstFragment = FirstFragment.newInstance(userId);
         Fragment secondFragment = new SecondFragment();
         Fragment thirdFragment = new ThirdFragment();
 

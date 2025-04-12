@@ -7,8 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.androiddevjava.R;
+import com.example.androiddevjava.model.UserLoginModel;
+import com.example.androiddevjava.retrofit.RetrofitService;
+import com.example.androiddevjava.retrofit.UserLoginAPI;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,12 +56,25 @@ public class FirstFragment extends Fragment {
         return fragment;
     }
 
+    private static final String ARG_USER_ID = "userId";
+    private long userId;
+    private TextView textBox;
+
+    public static Fragment newInstance(long userId) {
+        FirstFragment fragment = new FirstFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_USER_ID, userId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+            userId = getArguments().getLong(ARG_USER_ID);
         }
     }
 
@@ -61,6 +82,34 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        textBox = view.findViewById(R.id.textBox);
+        apiFetch(userId);
+        return view;
     }
+
+    private void apiFetch(long userId) {
+        RetrofitService retrofitService = new RetrofitService();
+        UserLoginAPI userLoginAPI = retrofitService.getRetrofit().create(UserLoginAPI.class);
+
+        UserLoginModel model = new UserLoginModel(userId);
+        Call<UserLoginModel> call = userLoginAPI.loginUser(userId);
+
+        call.enqueue(new Callback<UserLoginModel>() {
+            @Override
+            public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
+                if(response.isSuccessful()) {
+                    UserLoginModel responseFromAPI = response.body();
+                    String responseString = "Hi " + responseFromAPI.getName() + "\n";
+                    textBox.setText(responseString);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserLoginModel> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

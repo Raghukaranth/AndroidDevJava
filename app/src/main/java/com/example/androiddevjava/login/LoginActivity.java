@@ -87,7 +87,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
                 if(response.isSuccessful()) {
+
                     Intent intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
+                    intent.putExtra("userLongValue", id);
                     startActivity(intent);
                 }
                 else Toast.makeText(LoginActivity.this, "You are not the member of our group please sign up first", Toast.LENGTH_SHORT).show();

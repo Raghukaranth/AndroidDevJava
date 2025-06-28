@@ -1,5 +1,7 @@
 package com.example.androiddevjava.login;
 
+import static com.example.androiddevjava.utils.FeatureFlags.FEATURE_FLAG_NAME;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androiddevjava.dataSwitch.GetAndPostData;
 import com.example.androiddevjava.discovery.DiscoveryActivity;
 import com.example.androiddevjava.R;
 import com.example.androiddevjava.model.UserLoginModel;
+import com.example.androiddevjava.retrofit.FeatureFlagAPI;
 import com.example.androiddevjava.retrofit.RetrofitService;
 import com.example.androiddevjava.retrofit.UserLoginAPI;
 
@@ -22,6 +26,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String ALTERNATE_ACTIVITY = "com.example.androiddevjava.dataSwitch.GetAndPostData";
+
     private EditText idNumberTextBox;
     private Button idLoginButton;
     private Button idLoginSignButton;
@@ -87,10 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserLoginModel> call, Response<UserLoginModel> response) {
                 if(response.isSuccessful()) {
-
-                    Intent intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
-                    intent.putExtra("userLongValue", id);
-                    startActivity(intent);
+                    checkFeatureFlagAndNavigate(id);
                 }
                 else Toast.makeText(LoginActivity.this, "You are not the member of our group please sign up first", Toast.LENGTH_SHORT).show();
             }
@@ -101,4 +104,53 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void checkFeatureFlagAndNavigate(long userId) {
+        RetrofitService retrofitService = new RetrofitService();
+        FeatureFlagAPI featureFlagAPI = retrofitService.getRetrofit().create(FeatureFlagAPI.class);
+
+        Call<Boolean> featureFlagCall = featureFlagAPI.isFeatureEnabledForUser(userId, FEATURE_FLAG_NAME);
+
+        featureFlagCall.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    boolean isFeatureEnabled = response.body();
+                    navigateBasedOnFeatureFlag(userId, isFeatureEnabled);
+                } else {
+                    // If feature flag check fails, default to original behavior
+                    navigateToDefaultActivity(userId);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                // If feature flag API call fails, default to GetAndPostData activity
+                Toast.makeText(LoginActivity.this, "Feature flag check failed, using default flow", Toast.LENGTH_SHORT).show();
+                navigateToDefaultActivity(userId);
+            }
+        });
+    }
+
+    private void navigateBasedOnFeatureFlag(long userId, boolean isFeatureEnabled) {
+        Intent intent;
+
+        if (isFeatureEnabled) {
+            // Feature flag is true - go to the DiscoveryActivity
+            intent = new Intent(LoginActivity.this, DiscoveryActivity.class);
+        } else {
+            // Feature flag is false - go to GetAndPostData activity
+            intent = new Intent(LoginActivity.this, GetAndPostData.class);
+        }
+
+        intent.putExtra("userLongValue", userId);
+        startActivity(intent);
+    }
+
+    private void navigateToDefaultActivity(long userId) {
+        Intent intent = new Intent(LoginActivity.this, GetAndPostData.class);
+        intent.putExtra("userLongValue", userId);
+        startActivity(intent);
+    }
+
 }

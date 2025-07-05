@@ -25,7 +25,7 @@ public class AttendenceActivity extends AppCompatActivity {
     // Existing views
     CheckBox chkbxk1, chkbxk2, chkbxk3;
     EditText time1, time2, time3;
-    EditText reason1, reason2, reason3;
+    EditText reason1, reason2, reason3, workDone;
     Button submitButton, readDataButton;
 
     AttendanceDbHelper dbHelper;
@@ -47,6 +47,7 @@ public class AttendenceActivity extends AppCompatActivity {
         chkbxk3 = findViewById(R.id.checkbox_reason3);
         time3 = findViewById(R.id.time_input3);
         reason3 = findViewById(R.id.reason_input3);
+        workDone = findViewById(R.id.workDone1);
 
         submitButton = findViewById(R.id.submitButton);
         readDataButton = findViewById(R.id.readDataButton);
@@ -66,9 +67,11 @@ public class AttendenceActivity extends AppCompatActivity {
         checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 timeInput.setVisibility(View.VISIBLE);
+                workDone.setVisibility(View.VISIBLE);
                 reasonInput.setVisibility(View.GONE);
             } else {
                 timeInput.setVisibility(View.GONE);
+                workDone.setVisibility(View.GONE);
                 reasonInput.setVisibility(View.VISIBLE);
             }
         });

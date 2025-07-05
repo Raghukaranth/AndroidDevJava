@@ -38,13 +38,15 @@
         <activity
             android:name=".login.SignupActivity"
             android:exported="false" />
-
-            <activity
-                android:name=".discovery.DiscoveryActivity"
-                android:exported="false" />
+        <activity
+            android:name=".discovery.DiscoveryActivity"
+            android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="true" >
+            android:exported="false"/>
+        <activity
+                android:name=".ams.AttendenceActivity"
+                android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
